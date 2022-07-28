@@ -1,0 +1,59 @@
+---
+title: "Choose Random Graph Generator"
+output:
+  html_document:
+    df_print: paged
+---
+
+Try igraph
+
+```{r}
+library(igraph)
+library(visNetwork)
+```
+
+Generate an evolving random graph with preferential attachment and aging. I use [this](https://igraph.org/r/html/latest/sample_pa_age.html) function from [R igraph](https://igraph.org/r/html/latest/)
+
+```{r}
+g1 <- sample_pa_age(100, pa.exp=1, aging.exp=0, aging.bin=10)
+g1
+```
+Generate data for [visNetwork](https://rdrr.io/cran/visNetwork/) with [toVisNetworkData()](https://rdrr.io/cran/visNetwork/man/visNetwork-igraph.html) function.
+
+```{r}
+g1_vn_data = toVisNetworkData(g1)
+```
+
+```{r}
+visNetwork(nodes = g1_vn_data$nodes, edges = g1_vn_data$edges)
+```
+
+Generate scale-free graphs according to the Barabasi-Albert model. I use [this](https://igraph.org/r/html/latest/sample_pa.html) function from [R igraph](https://igraph.org/r/html/latest/)
+
+```{r}
+g2 <- sample_pa(100)
+g2_vn_data = toVisNetworkData(g2)
+visNetwork(nodes = g2_vn_data$nodes, edges = g2_vn_data$edges)
+```
+
+Generate random graphs according to the G(n,p) Erdos-Renyi model. I use [this](https://igraph.org/r/html/latest/sample_gnp.html) function from [R igraph](https://igraph.org/r/html/latest/)
+
+```{r}
+g3 <- sample_gnp(100, 1/100)
+g3_vn_data = toVisNetworkData(g3)
+visNetwork(nodes = g3_vn_data$nodes, edges = g3_vn_data$edges)
+```
+
+Generate random graphs according to the G(n,m) Erdos-Renyi model. I use [this](https://igraph.org/r/html/latest/sample_gnm.html) function from [R igraph](https://igraph.org/r/html/latest/)
+
+```{r}
+g4 <- sample_gnm(100, 100)
+g4_vn_data = toVisNetworkData(g4)
+visNetwork(nodes = g4_vn_data$nodes, edges = g4_vn_data$edges)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
